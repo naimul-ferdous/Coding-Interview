@@ -208,3 +208,66 @@ int main() {
 
 
 ```
+
+# Maximum Sum Contiguous Subarray
+Given an integer array, find the maximum sum of the contiguous subarray.
+Example:
+Input: [-1,-2,1,2,3,-5,4]
+Output: 6 (1+2+3)
+Input: [-1,-2,1,2,3,-5,4,5]
+Output: 10(1+2+3-5+4+5)
+
+# Solution in O(n^2) time complexity
+```cpp
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int arr[]= {-2,-1,-1,-2,-3,-5,-4,-7};
+    int n= sizeof(arr)/sizeof(arr[0]);
+    int maxSum= INT_MIN;
+    int currentSum=0;
+    for(int i=0;i<n;i++) {
+
+        if(arr[i]>maxSum) {
+            maxSum= arr[i];
+        }
+
+        currentSum= arr[i];
+        for(int j=i+1;j<n;j++) {
+            currentSum+= arr[j];
+            if(currentSum>maxSum) {
+                maxSum= currentSum;
+            }
+
+        }
+    }
+    cout<<maxSum;
+}
+```
+
+# Solution in O(n) time complexity
+
+```cpp
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int A[]= {-2,-2,-1,-3,-5,-4,-5};
+    int n= sizeof(A)/sizeof(A[0]);
+    int maxSum= INT_MIN;
+    int currentSum= 0;
+    for(int i=0;i<n;i++) {
+        currentSum+= A[i];
+        if(currentSum>maxSum) {
+            maxSum= currentSum;
+        }
+        if(currentSum<0) {
+            currentSum= 0;
+        }
+    }
+    cout<<maxSum;
+}
+```
