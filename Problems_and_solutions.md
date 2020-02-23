@@ -411,3 +411,126 @@ int main() {
     return 0;
 }
 ```
+
+# Maximum Unsorted Subarray
+Given an integer subarray. Determine from which index to which index the elements need to be sorted to make the whole array sorted.
+Input: A= [1,3,2,4,5]
+Output: [1,2]
+
+Input: A= [1,4,2,3,5]
+Output: [1,3]
+
+Input: A= [1,2,3,4,5]
+Output: [-1]
+
+Input: A= [3,2,1]
+Output: [0,2]
+
+Input: A= [5,6,1,2,4,7]
+
+# Solution
+
+```cpp
+#include<iostream>
+#include<bits/stdc++.h>
+#include<vector>
+using namespace std;
+
+vector<int> maxUnsortedSubarray(int arr[], int n) {
+    vector<int > result;
+    int ax[n];
+    for(int i=0;i<n;i++) {
+        ax[i]=arr[i];
+    }
+    sort(ax, ax+n);
+    for(int i=0;i<n;i++) {
+        if(ax[i] != arr[i])
+            result.push_back(i);
+    }
+    return result;
+}
+
+int main() {
+
+    int a[]= {5,6,1,2,4,7};
+    int n= sizeof(a)/sizeof(a[0]);
+    vector<int> abracadabra;
+    for(auto x: maxUnsortedSubarray(a, n))
+        abracadabra.push_back(x);
+
+    cout<<"[ ";
+    if(!abracadabra.empty())
+        cout<<abracadabra[0]<<", "<<abracadabra[abracadabra.size()-1];
+    else
+        cout<<-1;
+	cout<<"]";
+
+    return 0;
+}
+```
+
+# More efficient solution
+```cpp
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+
+int arraySortedOrNot(int arr[], int n)
+{
+    if (n == 1 || n == 0)
+        return 1;
+
+    if (arr[n - 1] < arr[n - 2])
+        return 0;
+
+    return arraySortedOrNot(arr, n - 1);
+}
+
+void rangeIndex(int arr[], int n) {
+    if(arraySortedOrNot(arr, n)) {
+        cout<<-1;
+        return;
+    }
+    int start, endd;
+    for(int i=0;i<n;i++) {
+        if(arr[i]>arr[i+1]) {
+            start= i;
+            break;
+        }
+    }
+
+    for(int j=n-1;j>0;j--) {
+        if(arr[j]<arr[j-1]) {
+            endd= j;
+            break;
+        }
+    }
+
+
+    for(int i=0;i<start;i++) {
+        for(int j=start;j<=endd;j++) {
+            if(arr[i]>arr[j]) {
+                start= i;
+            }
+        }
+    }
+
+    for(int i=endd+1;i<n;i++) {
+        for(int j= start;j<=endd;j++) {
+            if(arr[i]<arr[j]) {
+                endd= i;
+            }
+        }
+    }
+
+    cout<<start<<" "<<endd;
+}
+
+int main() {
+    int A[]= {5,6,1,2,4,7};
+    int n= sizeof(A)/sizeof(A[0]);
+    rangeIndex(A, n);
+
+    return 0;
+}
+```
