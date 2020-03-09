@@ -706,7 +706,7 @@ int main() {
 Write function for the following cases:-
 
 1. Hello World-> dlroW olleH
-2. Helo Worlld-> olleH dlroW
+2. Hello Worlld-> olleH dlroW
 3. Hello World-> World Hello
 
 NB: Several spaces should be considered as a single space in the output
