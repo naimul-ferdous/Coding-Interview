@@ -669,3 +669,35 @@ int main() {
     return 0;
 }
 ```
+
+# String Rotation
+Given strings s1 and s2. Determine if s2 is the rotation of s1 or not. You can use strstr function only once.
+
+Example: abcde-> bcdea-> cdeab
+
+# Solution
+```cpp
+#include<iostream>
+#include<string.h>
+#include<bits/stdc++.h>
+using namespace std;
+
+bool isRotation(char s1[], char s2[]) {
+    if(strlen(s1)==strlen(s2)) {
+        strcat(s1, s1);
+        char* p;
+        p= strstr(s1, s2);
+        if(p)
+            return true;
+    }
+    return false;
+}
+
+int main() {
+    char a[]= "abcde";
+    char b[]= "cdeab";
+    isRotation(a, b) ? cout<<"Yes" : cout<<"No";
+
+    return 0;
+}
+```
